@@ -1,26 +1,29 @@
 from sys import argv
 from math import sqrt
 
+# Usage statement for file
 def usage():
     print("python3 fibonacci.py [-i || -s] [index]")
 
+# Function to find the Fibonacci number at index n
 def fiboIndv(nth):
     numer = pow((1 + sqrt(5)), nth)
     denom = (pow(2, nth)) * sqrt(5)
     return round(numer / denom)
 
+# Function to find the Fibonacci sequence of numbers from n to 0
 def fiboSeq(nth):
     seq = []
 
     if nth == 0:
         return [fiboIndv(nth)]
     else:
-        # return [fiboIndv(nth), fiboSeq(nth - 1)]
         seq.append(fiboIndv(nth))
         for n in fiboSeq(nth - 1):
             seq.append(n)
         return seq
 
+# Main function
 def main():
     if len(argv) < 3:
         usage()
