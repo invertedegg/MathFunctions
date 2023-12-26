@@ -9,22 +9,17 @@ def fiboIndv(nth):
     denom = (pow(2, nth)) * sqrt(5)
     return round(numer / denom)
 
-def fiboSeq2(nth):
-    tot = 0
-
-    if nth == 1 or nth == 2:
-        tot = 1
-    elif nth == 25:
-        tot = 75025
-    elif nth > 2:
-        tot = fiboSeq(nth - 2) + fiboSeq(nth - 1)
-    return tot
-
 def fiboSeq(nth):
+    seq = []
+
     if nth == 0:
-        return "0"
+        return [fiboIndv(nth)]
     else:
-        return [fiboIndv(nth)].append(fiboSeq(nth -1))
+        # return [fiboIndv(nth), fiboSeq(nth - 1)]
+        seq.append(fiboIndv(nth))
+        for n in fiboSeq(nth - 1):
+            seq.append(n)
+        return seq
 
 def main():
     if len(argv) < 3:
@@ -33,7 +28,9 @@ def main():
         if argv[1] == "-i":
             print("Fibonacci number at index " + argv[2] + ": ", fiboIndv(float(argv[2])))
         elif argv[1] == "-s":
-            print("Fibonacci sequence from "  + argv[2] + " to 0: ", fiboSeq(float(argv[2])))
+            seq = fiboSeq(float(argv[2]))
+            seq.reverse()
+            print("Fibonacci sequence from 0 to " + argv[2] + ": ", seq)
         else:
             usage()
 
